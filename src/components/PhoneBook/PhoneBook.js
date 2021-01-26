@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { getContacts } from '../../redux/phoneBook/phoneBook-selectors';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { phoneBookOperations } from 'redux/phoneBook/';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ContactForm from '../ContactForm/ContactForm';
@@ -9,7 +9,12 @@ import ContactList from '../ContactList/ContactList';
 import styles from './PhoneBook.module.css';
 
 function PhoneBook() {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(phoneBookOperations.fetchContacts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(phoneBookOperations.fetchContacts());
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>

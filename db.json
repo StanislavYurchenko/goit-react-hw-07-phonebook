@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "name": "qwe",
+      "number": "11111",
+      "id": 1
+    },
+    {
+      "name": "qwerty",
+      "number": "11111",
+      "id": 2
+    },
+    {
+      "name": "Юрченко Станисл",
+      "number": "123",
+      "id": 3
+    }
+  ]
+}

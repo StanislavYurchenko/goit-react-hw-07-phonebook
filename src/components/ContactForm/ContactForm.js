@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../../redux/phoneBook/phoneBook-actions';
 import { toast } from 'react-toastify';
-import { v4 as uuidv4 } from 'uuid';
-import { getContacts } from '../../redux/phoneBook/phoneBook-selectors';
+import { phoneBookSelectors, phoneBookOperations } from 'redux/phoneBook';
 import styles from './ContactForm.module.css';
 
 function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(phoneBookSelectors.getContacts);
   const dispatch = useDispatch();
 
   const onChange = event => {
@@ -44,7 +42,7 @@ function ContactForm() {
     if (!normalizedName) {
       return toast.error('Enter contact name');
     }
-    dispatch(addContact({ name: normalizedName, number, id: uuidv4() }));
+    dispatch(phoneBookOperations.addContact({ name: normalizedName, number }));
     reset();
   };
 
