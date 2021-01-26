@@ -1,12 +1,17 @@
-import { combineReducers } from 'redux';
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, combineReducers, createSlice } from '@reduxjs/toolkit';
 import * as actions from './phoneBookActions';
+import {
+  addContact,
+  removeContact,
+  fetchContacts,
+} from './phoneBookOperations';
 
 const contactsReducer = createReducer([], {
-  [actions.removeContactSuccess]: (state, { payload }) =>
+  [removeContact.fulfilled]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
-  [actions.addContactSuccess]: (state, { payload }) => [...state, payload],
-  [actions.fetchContactsSuccess]: (_, { payload }) => payload,
+
+  [addContact.fulfilled]: (state, { payload }) => [...state, payload],
+  [fetchContacts.fulfilled]: (_, { payload }) => payload,
 });
 
 const filterReducer = createReducer('', {
@@ -14,19 +19,22 @@ const filterReducer = createReducer('', {
 });
 
 const loadingReducer = createReducer(false, {
-  [actions.addContactRequest]: () => true,
-  [actions.addContactSuccess]: () => false,
-  [actions.addContactError]: () => false,
-  [actions.removeContactRequest]: () => true,
-  [actions.removeContactSuccess]: () => false,
-  [actions.removeContactError]: () => false,
-  [actions.fetchContactsRequest]: () => true,
-  [actions.fetchContactsSuccess]: () => false,
-  [actions.fetchContactsError]: () => false,
+  [addContact.pending]: () => true,
+  [addContact.fulfilled]: () => false,
+  [addContact.rejected]: () => false,
+  [removeContact.pending]: () => true,
+  [removeContact.fulfilled]: () => false,
+  [removeContact.rejected]: () => false,
+  [fetchContacts.pending]: () => true,
+  [fetchContacts.fulfilled]: () => false,
+  [fetchContacts.rejected]: () => false,
 });
 
 const errorReducer = createReducer(null, {
-  [actions.fetchContactsError]: (_, { payload }) => payload,
+  [fetchContacts.rejected]: (_, { payload }) => payload,
+  [fetchContacts.pending]: () => null,
+  [removeContact.rejected]: (_, { payload }) => payload,
+  [removeContact.pending]: () => null,
 });
 
 export default combineReducers({
