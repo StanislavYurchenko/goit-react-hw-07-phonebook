@@ -14,6 +14,10 @@ export const removeContactSuccess = createAction(
 );
 export const removeContactError = createAction('phoneBook/removeContactError');
 
-export const fetchContactsRequest = createAction('phoneBook/getContactRequest');
-export const fetchContactsSuccess = createAction('phoneBook/getContactSuccess');
-export const fetchContactsError = createAction('phoneBook/getContactError');
+export const fetchContactsRequest = createAction(
+  'phoneBook/fetchContactRequest',
+);
+export const fetchContactsSuccess = createAction(
+  'phoneBook/fetchContactSuccess',
+);
+export const fetchContactsError = createAction('phoneBook/fetchContactError');

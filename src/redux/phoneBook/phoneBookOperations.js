@@ -1,3 +1,5 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import * as actions from './phoneBookActions';
 import axios from 'axios';
 import * as phoneBookApi from 'api/phoneBookApi';
@@ -36,3 +38,11 @@ export const fetchContacts = () => async dispatch => {
     dispatch(actions.fetchContactsError(error));
   }
 };
+
+// export const fetchContacts = createAsyncThunk(
+//   'phoneBook/fetchContacts',
+//   async () => {
+//     const books = await phoneBookApi.getContactsApi();
+//     return books;
+//   },
+// );
